@@ -1,0 +1,92 @@
+{
+  "uuid": "ab77480a-d36a-495a-b964-c621437a4a81",
+  "lastMigration": 32,
+  "name": "Mockoon payments",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 9000,
+  "hostname": "",
+  "folders": [],
+  "routes": [
+    {
+      "uuid": "93d574e4-922d-4d5f-89fd-2a33bf2894f1",
+      "type": "http",
+      "documentation": "",
+      "method": "post",
+      "endpoint": "payments",
+      "responses": [
+        {
+          "uuid": "f763b6c3-9a94-4e72-a857-ec1de700d5d7",
+          "body": "{\n  \"status\": \"OK\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    }
+  ],
+  "rootChildren": [
+    {
+      "type": "route",
+      "uuid": "93d574e4-922d-4d5f-89fd-2a33bf2894f1"
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [
+    {
+      "key": "Content-Type",
+      "value": "application/json"
+    },
+    {
+      "key": "Access-Control-Allow-Origin",
+      "value": "*"
+    },
+    {
+      "key": "Access-Control-Allow-Methods",
+      "value": "GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS"
+    },
+    {
+      "key": "Access-Control-Allow-Headers",
+      "value": "Content-Type, Origin, Accept, Authorization, Content-Length, X-Requested-With"
+    }
+  ],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "data": [],
+  "callbacks": []
+}

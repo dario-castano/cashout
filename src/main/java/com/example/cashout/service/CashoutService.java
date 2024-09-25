@@ -64,4 +64,15 @@ public class CashoutService {
                         .build());
     }
 
+    public Mono<Cashout> createCashout(Cashout cashout) {
+        return cashoutRepository.save(CashoutEntity.builder()
+                .userId(cashout.getUserId())
+                .amount(cashout.getAmount())
+                .build())
+                .map(cashoutEntity -> Cashout.builder()
+                        .id(cashoutEntity.getId())
+                        .userId(cashoutEntity.getUserId())
+                        .amount(cashoutEntity.getAmount())
+                        .build());
+    }
 }

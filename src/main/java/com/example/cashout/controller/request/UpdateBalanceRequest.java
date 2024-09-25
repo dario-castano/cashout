@@ -1,4 +1,4 @@
-package com.example.cashout.model;
+package com.example.cashout.controller.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,10 +7,8 @@ import lombok.RequiredArgsConstructor;
 
 @Data
 @Builder
-@RequiredArgsConstructor
 @AllArgsConstructor
-public class Cashout {
-    private Long id;
-    private Long userId;
+@RequiredArgsConstructor
+public class UpdateBalanceRequest {
     private Double amount;
 }

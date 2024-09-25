@@ -5,8 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
-import java.math.BigDecimal;
-
 @Data
 @Builder
 @RequiredArgsConstructor
@@ -14,5 +12,5 @@ import java.math.BigDecimal;
 public class User {
     private Long id;
     private String name;
-    private BigDecimal balance;
+    private Double balance;
 }

@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: cashout
+  r2dbc:
+    username: postgres
+    password: mysecretpassword
+    url: r2dbc:postgresql://localhost:5432/cashout
+    properties:
+      schema: system
+  flyway:
+    enabled: true
+    url: jdbc:postgresql://localhost:5432/cashout
+    user: postgres
+    password: mysecretpassword
+    validate-on-migrate: true
+    baseline-on-migrate: true
+    schema: system

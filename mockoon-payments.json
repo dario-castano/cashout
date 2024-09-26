@@ -17,7 +17,7 @@
       "responses": [
         {
           "uuid": "f763b6c3-9a94-4e72-a857-ec1de700d5d7",
-          "body": "{\n  \"status\": \"OK\"\n}",
+          "body": "{\n  \"status\": \"SUCCESS\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "",

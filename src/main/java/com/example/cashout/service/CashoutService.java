@@ -2,12 +2,14 @@ package com.example.cashout.service;
 
 import com.example.cashout.model.Cashout;
 import com.example.cashout.model.User;
+import com.example.cashout.persistence.entity.PaymentStatus;
 import com.example.cashout.persistence.entity.UserEntity;
 import com.example.cashout.persistence.entity.CashoutEntity;
 import com.example.cashout.persistence.repository.CashoutRepository;
 import com.example.cashout.persistence.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -65,14 +67,24 @@ public class CashoutService {
     }
 
     public Mono<Cashout> createCashout(Cashout cashout) {
-        return cashoutRepository.save(CashoutEntity.builder()
-                .userId(cashout.getUserId())
-                .amount(cashout.getAmount())
-                .build())
-                .map(cashoutEntity -> Cashout.builder()
-                        .id(cashoutEntity.getId())
-                        .userId(cashoutEntity.getUserId())
-                        .amount(cashoutEntity.getAmount())
-                        .build());
+        return WebClient.builder()
+                .build()
+                .post()
+                .uri("http://localhost:9000/payments")
+                .body(Mono.just(cashout), Cashout.class)
+                .retrieve()
+                .bodyToMono(PaymentStatus.class)
+                .filter(paymentStatus -> paymentStatus.getStatus().equals("SUCCESS"))
+                .switchIfEmpty(Mono.error(new RuntimeException("Payment failed")))
+                .flatMap(paymentStatus ->
+                        cashoutRepository.save(CashoutEntity.builder()
+                                .userId(cashout.getUserId())
+                                .amount(cashout.getAmount())
+                                .build())
+                        .map(cashoutEntity -> Cashout.builder()
+                                .id(cashoutEntity.getId())
+                                .userId(cashoutEntity.getUserId())
+                                .amount(cashoutEntity.getAmount())
+                                .build()));
     }
 }

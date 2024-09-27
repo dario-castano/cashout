@@ -1,0 +1,1 @@
+TRUNCATE system.users CASCADE;

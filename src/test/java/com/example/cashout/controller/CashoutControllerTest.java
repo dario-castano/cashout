@@ -1,5 +1,7 @@
 package com.example.cashout.controller;
 
+import com.example.cashout.controller.request.CreateCashoutRequest;
+import com.example.cashout.controller.request.UpdateBalanceRequest;
 import com.example.cashout.model.User;
 import io.r2dbc.spi.ConnectionFactory;
 import org.junit.jupiter.api.BeforeEach;
@@ -64,13 +66,47 @@ class CashoutControllerTest {
 
     @Test
     void updateUserBalance() {
+        var updateBalanceRequest = new UpdateBalanceRequest(123.45);
+        webTestClient.get()
+                .uri("http://localhost:8080/api/v1/users/5")
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody()
+                .jsonPath("$.balance").isEqualTo(500.1);
+        webTestClient.put()
+                .uri("http://localhost:8080/api/v1/users/5/balance")
+                .bodyValue(updateBalanceRequest)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody()
+                .jsonPath("$.balance").isEqualTo(123.45);
     }
 
     @Test
     void createCashout() {
+        var createCashoutRequest = new CreateCashoutRequest(1L, 20.20);
+        webTestClient.post()
+                .uri("http://localhost:8080/api/v1/cashout")
+                .bodyValue(createCashoutRequest)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody()
+                .jsonPath("$.userId").isEqualTo(1)
+                .jsonPath("$.amount").isEqualTo(20.20);
     }
 
     @Test
     void getCashoutsByUserId() {
+        webTestClient.get()
+                .uri("http://localhost:8080/api/v1/cashouts/user/1")
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody()
+                .jsonPath("$[0].userId").isEqualTo(1)
+                .jsonPath("$[0].amount").isEqualTo(100.0)
+                .jsonPath("$[1].userId").isEqualTo(1)
+                .jsonPath("$[1].amount").isEqualTo(200.34)
+                .jsonPath("$[2].userId").isEqualTo(1)
+                .jsonPath("$[2].amount").isEqualTo(3.5);
     }
 }
